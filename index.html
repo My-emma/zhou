@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://localhost:8080/fonts/iconfont.css">
+    <link rel="stylesheet" href="http://localhost:8080/css/style.css">
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <span>北京市</span>
+            <h1>途虎养车</h1>
+            <div class="right">
+                <span><i class="iconfont">&#xe729;</i>搜索</span>
+                <span><i class="iconfont">&#xe729;</i>搜索</span>
+            </div>
+        </header>
+        <section>
+            <nav class="nav">
+                <ul class="list"></ul>
+            </nav>
+            <p class="line"></p>
+            <div class="center">
+                <ul>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li class="big"><img src="img/log.png" alt=""></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                    <li><img src="img/nav.png" alt=""><span>自助小保养</span></li>
+                </ul>
+            </div>
+            <div class="banner">
+                <img src="img/banner.png" alt="">
+            </div>
+            <div class="content">
+                <dl>
+                    <dd>
+                        <b>6年盛典</b>
+                        轮胎666元2条
+                    </dd>
+                    <dt><img src="img/nav.png" alt=""></dt>
+                </dl>
+                <dl>
+                    <dd>
+                        <b>6年盛典</b>
+                        轮胎666元2条
+                    </dd>
+                    <dt><img src="img/nav.png" alt=""></dt>
+                </dl>
+            </div>
+        </section>
+        <footer>
+            <dl class="fdl">
+                <dt class="iconfont">&#xe6cd;</dt>
+                <dd>首页</dd>
+            </dl>
+            <dl>
+                <dt class="iconfont">&#xe6cd;</dt>
+                <dd>首页</dd>
+            </dl>
+            <dl>
+                <dt class="iconfont">&#xe6cd;</dt>
+                <dd>首页</dd>
+            </dl>
+            <dl>
+                <dt class="iconfont">&#xe6cd;</dt>
+                <dd>首页</dd>
+            </dl>
+        </footer>
+    </div>
+    <script>
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 50 + 'px';
+        function ajax(opt){
+            var xhr = new XMLHttpRequest();
+            xhr.open('get', opt.url, true);
+            xhr.send();
+            xhr.onload = function(res){
+                if(res.target.status === 200){
+                    opt.success(res.target.response);
+                }
+            }
+        }
+        var list = document.getElementsByClassName('list')[0];
+        var str = '';
+        ajax({
+            url:'http://localhost:8080/getData',
+            success:function(data){
+                data = JSON.parse(data);
+                data.forEach(function(val) {
+                    if(val.code === 1){
+                        val.data.forEach(function(file){
+                            str += `<li>
+                                <img src=${file.img} alt="">
+                                <span>${file.span}</span>
+                                <span>${file.spanl}</span>
+                            </li>`;
+                        })
+                    }
+                });
+                list.innerHTML = str;
+                str = '';
+            }
+        })
+    </script>
+</body>
+</html>
